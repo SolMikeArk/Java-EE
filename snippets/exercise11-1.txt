@@ -1,0 +1,16 @@
+	private StringWriter responseWriterBuffer;
+
+	public StringResponse(HttpServletResponse response) {
+		super(response);
+		responseWriterBuffer = new StringWriter();
+	}
+
+	@Override
+	public String toString() {
+		return responseWriterBuffer.toString();
+	}
+
+	@Override
+	public PrintWriter getWriter() throws IOException {
+		return new PrintWriter(responseWriterBuffer);
+	}

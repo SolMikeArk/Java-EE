@@ -1,0 +1,22 @@
+	private void processRequest(HttpServletRequest req,	HttpServletResponse resp)
+		throws ServletException, IOException {
+
+		HttpSession session = req.getSession(false);
+		ServletContext context = getServletContext();
+		Patron patron = null;
+
+		// Check to see if patron has been logged in by checking 
+		// for existence of patron object in the session.
+		if (session != null) {
+			patron = (Patron) session.getAttribute("PATRON");
+		}
+
+		// If patron logged in forward to list items jsp
+		// otherwise forward to login servlet
+		if (patron != null) {
+			context.getRequestDispatcher("/WEB-INF/jsp/ListItems.jsp")
+				.forward(req, resp);
+		} else {
+			context.getRequestDispatcher("/Login").forward(req, resp);
+		}
+	}

@@ -1,0 +1,10 @@
+	private void processRequest(HttpServletRequest request,
+		HttpServletResponse response) 
+		throws ServletException, IOException {
+		
+		ServletContext context = getServletContext();
+
+		// Display login form
+		context.getRequestDispatcher("/WEB-INF/jsp" + "/Login.jsp").forward(
+				request, response);
+	}

@@ -1,0 +1,9 @@
+String message = (String) request.getAttribute("message");
+if (message == null) {
+	message = "";
+}
+try {
+	out.println(message);
+} catch (IOException e) {
+	System.out.println("Exception occurred in Register.jsp: " + e);
+}

@@ -1,0 +1,20 @@
+	private void displayInvalidPassword(
+		String message,
+		HttpServletResponse resp)
+		throws IOException {
+
+		PrintWriter out = resp.getWriter();
+		out.println("<HTML>");
+		out.println("<HEAD>");
+		out.println("<TITLE>Invalid password</TITLE>");
+		out.println(
+			"<LINK rel=\"stylesheet\" type=\"text/css\""
+				+ " href=\"/Library/theme/Master.css\">");
+		out.println("</HEAD>");
+		out.println("<P>");
+		out.println(
+			"Registration failed: " + "Patron could not be added. " + message);
+		out.println("</P>");
+		out.println("</BODY>");
+		out.println("</HTML>");
+	}

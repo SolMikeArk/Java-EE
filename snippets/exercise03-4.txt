@@ -1,0 +1,14 @@
+private void displayDuplicatePatron(Patron patron, HttpServletResponse resp)	throws IOException {
+	PrintWriter out = resp.getWriter();
+	out.println("<HTML>");
+	out.println("<HEAD>");
+	out.println("<TITLE>Duplicate Patron</TITLE>");
+	out.println("<LINK rel=\"stylesheet\" type=\"text/css\" href=\"/Library/theme/Master.css\">");
+	out.println("</HEAD>");
+	out.println("<P>");
+	out.println("Registration failed: Patron " + patron.getEmail() + 
+		" already exists and could not be added");
+	out.println("</P>");
+	out.println("</BODY>");
+	out.println("</HTML>");
+}        

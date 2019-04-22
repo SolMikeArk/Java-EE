@@ -1,0 +1,26 @@
+		// Process tag body	
+		StringWriter bodyText = new StringWriter();
+		JspFragment body = getJspBody();
+		if (body == null) return;
+
+		body.invoke(bodyText);
+		StringBuffer buffer = new StringBuffer();
+		// Place font and bold tags at start of body 
+		// if renewed flag set
+		if (renewed) {
+			buffer.append("<b><font color=\"");
+			buffer.append(color);
+			buffer.append("\">");
+		}
+		// Copy in the body for either case
+		buffer.append(bodyText.toString());	
+		// Place font end tag at end of body if renewed
+		if (renewed) {
+			buffer.append("</font></b>");
+		}
+		try {
+			JspWriter out = getJspContext().getOut();
+			out.write(buffer.toString());
+		} catch (IOException e) {
+			throw new JspException("Hilite tag: " + e.getMessage());
+		}

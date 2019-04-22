@@ -1,0 +1,23 @@
+a.details{
+    z-index=100;		/* to front */
+    position: relative;	/* for child span */
+    color: blue;		/* font color */
+    cursor: default		/* do not switch to hyperlink pointer */
+}
+a.details span{			/* span child of details */
+	display: none;		/* hide */
+	text-decoration:none/* no underline */
+}
+a.details:hover{		
+	background-color: beige /* link turns beige */
+}
+a.details:hover span{		
+    display: block;		
+    position: absolute;	/* for offsets below */
+    top: 2em;			/* offset from link */
+    left: 1.5em;		/* offset from link */
+    padding:.5em .5em .5em .5em;/* text padding */
+
+    background-color: beige;/* beige info box */
+    border: 1px solid blue	/* blue border */
+ }

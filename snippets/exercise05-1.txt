@@ -1,0 +1,46 @@
+	private void processRequest(HttpServletRequest req,	HttpServletResponse resp)
+		throws ServletException, IOException {
+			
+		// build the Patron from the HttpServletRequest fields
+		Patron patron;
+		ServletContext context = getServletContext();
+		patron = buildPatron(req);
+
+		// verify that the patron is valid
+		if (!isValid(patron)) {
+			// no, one or more fields are missing
+			context.getRequestDispatcher(
+					"/Register.jsp?message=Registration failed: One or more fields "
+						+ "are incomplete.  Please fill in all fields and try again.")
+				.forward(req, resp);
+		} else {
+			// try to add the new patron
+			try {
+				patron.add();
+				context.getRequestDispatcher(
+						"/RegistrationSuccess.jsp?email="
+							+ patron.getEmail()
+							+ "&id="
+							+ patron.getId())
+					.forward(req, resp);
+			} catch (PatronExists e) {
+				context.getRequestDispatcher(
+						"/Register.jsp?message=Registration failed: Patron "
+							+ patron.getEmail()
+							+ " already exists and could not be added.")
+					.forward(req, resp);
+			} catch (SystemUnavailableException e) {
+				context.getRequestDispatcher(
+						"/Register.jsp?message=Registration failed: There is a system error. "
+							+ "Please try the registration again later.")
+					.forward(req, resp);
+			} catch (InvalidPassword e) {
+				String message = e.getMessage();
+				context.getRequestDispatcher(
+						"/Register.jsp?message=Registration failed: Patron could not "
+							+ "be added."
+							+ message)
+					.forward(req, resp);
+			}
+		}
+	}

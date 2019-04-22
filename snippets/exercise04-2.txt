@@ -1,0 +1,4 @@
+String email = request.getParameter("email");
+String id = request.getParameter("id");
+if (email == null) email = "unknown";
+if (id == null) id = "unknown"; 

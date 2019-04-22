@@ -1,0 +1,30 @@
+	private void processRequest(
+		HttpServletRequest req,
+		HttpServletResponse resp)
+		throws IOException {
+
+		Patron patron = null;
+
+		// Build the Patron from the HttpServletRequest fields
+		patron = buildPatron(req);
+
+		// Verfify that the patron is valid. Build a message based
+		// on the results of the processing.
+		if (!(isValid(patron))) {
+			// No, one or more fields are missing
+			displayMissingFields(resp);
+		} else {
+			// Try to add the new patron
+			try {
+				patron.add();
+				displayPatronAdded(patron, resp);
+			} catch (PatronExists e) {
+				displayDuplicatePatron(patron, resp);
+			} catch (SystemUnavailableException e) {
+				displaySystemError(resp, e);
+			} catch (InvalidPassword e) {
+				String message = e.getMessage();
+				displayInvalidPassword(message, resp);
+			}
+		}
+	}

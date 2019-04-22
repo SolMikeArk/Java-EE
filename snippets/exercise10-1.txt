@@ -1,0 +1,11 @@
+		Object obj = getJspContext().findAttribute(name);
+		if (obj == null) {
+			throw new JspException("Hilite tag: Name " + name + " not found");
+		}
+		// Is this an object of type com.ibm.library.LoanedCopy?
+		if (!(obj instanceof LoanedCopy) ) {
+			throw new JspException("Hilite tag: Name is not of type "
+					+ "com.ibm.library.model.LoanedCopy");
+		}
+		// Set flag if the item was in fact renewed
+		boolean renewed = ((LoanedCopy) obj).isRenewAccomplished();

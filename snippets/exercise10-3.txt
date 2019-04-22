@@ -1,0 +1,13 @@
+  	<tag>
+		<name>hilite</name>
+		<tag-class>com.ibm.library.tags.MarkRenewedTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<name>color</name>
+			<required>false</required>
+		</attribute>
+	</tag>

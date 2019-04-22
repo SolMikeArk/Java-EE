@@ -1,0 +1,46 @@
+private void processRequest(HttpServletRequest req, HttpServletResponse resp)
+	throws ServletException, IOException {
+
+	ServletContext context = getServletContext();
+	//Extract password and id from login.jsp form
+	String password = req.getParameter("PASSWORD");
+	String idString = req.getParameter("PATRON_ID");
+
+	int id = 0;
+	try {
+		id = Integer.valueOf(idString).intValue();
+	} catch (NumberFormatException e) {
+		// Id is zero if string is not valid digits
+	}
+
+	try {
+		//Verify the login id and password and create session
+		Patron.verifyLogon(id, password);
+		HttpSession session = req.getSession();
+
+		// Place the patron object in the session 
+		Patron patron = Patron.findById(id);
+		session.setAttribute("PATRON", patron);
+
+		//Transfer to servlet to process list items
+		context.getRequestDispatcher("/ProcessListItems").forward(req, resp);
+	} catch (PatronNotFound e) {
+		// No such id - forward to Login.jsp with message parameter	
+		req.setAttribute("MESSAGE",
+			"Login failed: Patron " + idString + " not registered");
+		context.getRequestDispatcher("/WEB-INF/jsp/Login.jsp")
+			.forward(req, resp);
+	} catch (SystemUnavailableException e) {
+		// System error - forward to Login.jsp with message parameter
+		req.setAttribute("MESSAGE",
+			"Login failed: There is a "
+				+ "system error. Please try to login later.");
+		context.getRequestDispatcher("/WEB-INF/jsp/Login.jsp")
+			.forward(req,resp);			
+	} catch (InvalidPassword e) {
+		// Bad password - forward to Login.jsp with message parameter
+		req.setAttribute("MESSAGE", "Login failed: Incorrect password");
+		context.getRequestDispatcher("/WEB-INF/jsp/Login.jsp")
+			.forward(req, resp);
+	}
+}

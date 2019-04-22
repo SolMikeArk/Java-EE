@@ -1,0 +1,21 @@
+	private void displaySystemError(
+		HttpServletResponse resp,
+		SystemUnavailableException e)
+		throws IOException {
+
+		PrintWriter out = resp.getWriter();
+		out.println("<HTML>");
+		out.println("<HEAD>");
+		out.println("<TITLE>System Error</TITLE>");
+		out.println(
+			"<LINK rel=\"stylesheet\" type=\"text/css\""
+				+ " href=\"/Library/theme/Master.css\">");
+		out.println("</HEAD>");
+		out.println("<P>");
+		out.println(
+			"Registration failed: There is a system error. "
+				+ "Please try the registration later");
+		out.println("</P>");
+		out.println("</BODY>");
+		out.println("</HTML>");
+	}

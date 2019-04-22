@@ -1,0 +1,41 @@
+	private void processRequest(
+		HttpServletRequest req,	
+		HttpServletResponse resp)
+	throws ServletException, IOException {
+
+		HttpSession session = req.getSession(false);
+		ServletContext context = getServletContext();
+		Patron patron = null;
+	
+		// Check to see if patron has been logged in by checking 
+		// for existence of patron object in the session.
+		if (session != null) {
+			patron = (Patron) session.getAttribute("PATRON");
+			if (patron == null) {
+				context.getRequestDispatcher("/Login").forward(req, resp);
+			}
+		}
+
+		try {
+
+			// Get list of items the patron has checked out, 
+			// put the list in the loaned copy list bean.
+			// Forward  to item list jsp (unless there were no items). 
+			ArrayList<LoanedCopy> loanList = (ArrayList<LoanedCopy>) patron.retrieveLoanedCopies();
+			if (loanList.size() > 0) {
+				LoanedCopyListBean listBean = new LoanedCopyListBean();
+				listBean.setLoanedCopyList(loanList);
+				session.setAttribute("listitems", listBean);
+				context.getRequestDispatcher(
+					"/WEB-INF/jsp/ListItems.jsp").forward(req, resp);
+			} else {
+				// List was empty,so forward to no list items jsp to inform user
+				context.getRequestDispatcher(
+					"/WEB-INF/jsp/NoListItems.jsp").forward(req,resp);
+			}
+		} catch (SystemUnavailableException e) {
+			// System error - report error 500 and message
+			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, 
+			"System unavaliable exception in ProcessListItems function");
+		}
+	}

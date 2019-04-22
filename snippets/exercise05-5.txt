@@ -1,0 +1,5 @@
+Patron patron = (Patron) request.getAttribute("patron");
+
+if (patron == null) {
+	patron = new Patron();
+}

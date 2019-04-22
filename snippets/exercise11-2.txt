@@ -1,0 +1,17 @@
+		PrintWriter out = response.getWriter();
+		String responseString = strResp.toString();
+			
+		int endBodyIndex = responseString.indexOf("</body>");
+		if (endBodyIndex > -1) {
+			StringBuffer finalResponse =
+				new StringBuffer(
+					responseString.substring(0, endBodyIndex - 1));
+			finalResponse.append("<H4>");
+			finalResponse.append(msg);
+			finalResponse.append("</H4></BODY></HTML>");
+			String finalResponseString = finalResponse.toString();
+			out.write(finalResponseString);
+		} else {
+			out.write(responseString);
+		}
+		out.close();

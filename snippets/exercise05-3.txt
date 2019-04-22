@@ -1,0 +1,7 @@
+Patron patron = (Patron) request.getAttribute("patron");
+String email = "unknown";
+String id = "unknown";
+if (patron != null) {
+    email = patron.getEmail();
+    id = String.valueOf(patron.getId());
+}
