@@ -1,0 +1,11 @@
+	private boolean isValid(Patron patron) {
+		String firstName = patron.getFirstName();
+		String lastName = patron.getLastName();
+		String email = patron.getEmail();
+
+		boolean error = firstName == null || firstName.length() == 0
+			|| lastName == null || lastName.length() == 0
+			|| email == null || email.length() == 0;
+
+		return !error;
+	}

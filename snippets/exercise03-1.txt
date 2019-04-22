@@ -1,0 +1,10 @@
+private Patron buildPatron(HttpServletRequest req) {
+   // pull off all of the fields and create a new Patron
+   Patron patron = null;
+   String firstName = req.getParameter("FIRST_NAME");
+   String lastName = req.getParameter("LAST_NAME");
+   String password = req.getParameter("PASSWORD");
+   String email = req.getParameter("EMAIL");
+   patron = new Patron(firstName, lastName, password, email);
+   return patron;
+}

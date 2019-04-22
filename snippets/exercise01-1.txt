@@ -1,0 +1,9 @@
+		out.println("<HTML>");
+		out.println("<HEAD><TITLE>Patron added</TITLE></HEAD>");
+		out.println("<LINK rel=\"stylesheet\" type=\"text/css\" " +
+			"href=\"/Library/theme/Master.css\">");
+		out.println("<BODY>");
+		out.println("<P>");
+		out.println("Patron with id " + id + " has been added.");
+		out.println("</BODY>");
+		out.println("</HTML>");

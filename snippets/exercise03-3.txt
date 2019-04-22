@@ -1,0 +1,14 @@
+private void displayMissingFields(HttpServletResponse resp) throws IOException {
+	PrintWriter out = resp.getWriter();
+	out.println("<HTML>");
+	out.println("<HEAD>");
+	out.println("<TITLE>Missing Fields</TITLE>");
+	out.println("<LINK rel=\"stylesheet\" type=\"text/css\" href=\"/Library/theme/Master.css\">");
+	out.println("</HEAD>");
+	out.println("<P>");
+	out.println("Registration failed: One or more fields are incomplete." +
+		" Please fill in all fields and try again");
+	out.println("</P>");
+	out.println("</BODY>");
+	out.println("</HTML>");
+}
